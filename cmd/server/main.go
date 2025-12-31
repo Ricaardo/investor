@@ -9,14 +9,14 @@ import (
 
 	"go.uber.org/zap"
 
-	"investot/config"
-	"investot/internal/adapter/feishu"
-	"investot/internal/adapter/rest"
-	"investot/internal/agent"
-	"investot/internal/core"
-	"investot/internal/dataservice"
-	"investot/internal/llm"
-	"investot/internal/session"
+	"investor/config"
+	"investor/internal/adapter/feishu"
+	"investor/internal/adapter/rest"
+	"investor/internal/agent"
+	"investor/internal/core"
+	"investor/internal/dataservice"
+	"investor/internal/llm"
+	"investor/internal/session"
 )
 
 func main() {

@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"investot/internal/llm"
+	"investor/internal/llm"
 )
 
 // Manager (In-Memory Version for local dev)

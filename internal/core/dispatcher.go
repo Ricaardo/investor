@@ -3,8 +3,8 @@ package core
 import (
 	"context"
 
-	"investot/internal/agent"
-	"investot/internal/model"
+	"investor/internal/agent"
+	"investor/internal/model"
 
 	"go.uber.org/zap"
 )

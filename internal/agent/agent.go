@@ -2,7 +2,7 @@ package agent
 
 import (
 	"context"
-	"investot/internal/model"
+	"investor/internal/model"
 )
 
 type Agent interface {

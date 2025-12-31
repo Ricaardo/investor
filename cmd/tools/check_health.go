@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"investot/internal/dataservice"
+	"investor/internal/dataservice"
 
 	"github.com/mmcdole/gofeed"
 )

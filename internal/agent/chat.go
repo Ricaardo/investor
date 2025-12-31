@@ -7,10 +7,10 @@ import (
 	"regexp"
 	"strings"
 
-	"investot/internal/dataservice"
-	"investot/internal/llm"
-	"investot/internal/model"
-	"investot/internal/session"
+	"investor/internal/dataservice"
+	"investor/internal/llm"
+	"investor/internal/model"
+	"investor/internal/session"
 )
 
 type ChatAgent struct {
@@ -49,7 +49,7 @@ func (a *ChatAgent) Process(ctx context.Context, msg *model.InternalMessage) (st
 
 	// 3. Construct Messages
 	systemPrompt := `# Role
-你是由 Investot 打造的首席全资产投资分析师。你精通股票（A股/港美股）、加密货币、外汇及大宗商品市场。你的风格是理性、客观、数据驱动，擅长结合宏观叙事与微观技术指标。
+你是由 Investor 打造的首席全资产投资分析师。你精通股票（A股/港美股）、加密货币、外汇及大宗商品市场。你的风格是理性、客观、数据驱动，擅长结合宏观叙事与微观技术指标。
 
 # Core Philosophy
 1. **Probability over Certainty**: 市场没有确定性，只有概率。拒绝任何绝对化的预测。

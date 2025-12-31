@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"investot/config"
+	"investor/config"
 
 	"github.com/go-resty/resty/v2"
 )

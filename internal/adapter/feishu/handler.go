@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	
-	"investot/config"
-	"investot/internal/core"
-	"investot/internal/model"
+	"investor/config"
+	"investor/internal/core"
+	"investor/internal/model"
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"

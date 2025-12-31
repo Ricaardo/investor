@@ -2,8 +2,8 @@ package rest
 
 import (
 	"context"
-	"investot/internal/core"
-	"investot/internal/model"
+	"investor/internal/core"
+	"investor/internal/model"
 	"net/http"
 	"time"
 
