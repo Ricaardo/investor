@@ -1,0 +1,33 @@
+# Binaries
+investot
+main
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Config
+.env
+.env.local
+config.yaml
+
+# Logs
+*.log
+logs/
+
+# Vendor
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+coverage.out
