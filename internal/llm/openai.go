@@ -42,17 +42,21 @@ func (p *OpenAIProvider) Chat(ctx context.Context, messages []Message) (string, 
 }
 
 func (p *OpenAIProvider) ChatWithTools(ctx context.Context, messages []Message, tools []map[string]interface{}) (*Message, error) {
-	reqBody := openAIRequest{
-		Model:    "deepseek-chat",
-		Messages: messages,
-		Tools:    tools,
+	// 1. Determine Model Name
+	model := p.config.ModelName
+	if model == "" {
+		// Fallback defaults if not configured
+		if p.config.Provider == "deepseek" {
+			model = "deepseek-chat"
+		} else {
+			model = "gpt-3.5-turbo"
+		}
 	}
 
-	// Adjust model name based on provider
-	if p.config.Provider == "deepseek" {
-		reqBody.Model = "deepseek-chat"
-	} else if p.config.Provider == "openai" {
-		reqBody.Model = "gpt-3.5-turbo"
+	reqBody := openAIRequest{
+		Model:    model,
+		Messages: messages,
+		Tools:    tools,
 	}
 
 	var respBody openAIResponse

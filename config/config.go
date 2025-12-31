@@ -24,9 +24,10 @@ type FeishuConfig struct {
 }
 
 type LLMConfig struct {
-	Provider string `mapstructure:"LLM_PROVIDER"`
-	APIKey   string `mapstructure:"LLM_API_KEY"`
-	APIURL   string `mapstructure:"LLM_API_URL"`
+	Provider  string `mapstructure:"LLM_PROVIDER"`
+	APIKey    string `mapstructure:"LLM_API_KEY"`
+	APIURL    string `mapstructure:"LLM_API_URL"`
+	ModelName string `mapstructure:"LLM_MODEL_NAME"` // e.g. "deepseek-chat", "gpt-4o"
 }
 
 var AppConfig *Config
