@@ -38,6 +38,8 @@ type ChatResponse struct {
 
 func (a *Adapter) Start(ctx context.Context) error {
 	r := gin.Default()
+	// Fix trusted proxies warning
+	r.SetTrustedProxies(nil)
 
 	r.POST("/api/v1/chat", a.handleChat)
 	r.GET("/health", func(c *gin.Context) {

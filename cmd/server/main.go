@@ -54,12 +54,16 @@ func main() {
 	// 7. Init Adapters (Multi-Channel Support)
 
 	// 7.1 Feishu Adapter (WebSocket Mode)
-	feishuAdapter := feishu.NewAdapter(config.AppConfig.Feishu, dispatcher, logger)
-	go func() {
-		if err := feishuAdapter.StartWS(context.Background()); err != nil {
-			logger.Error("Failed to start Feishu WS", zap.Error(err))
-		}
-	}()
+	if config.AppConfig.Feishu.AppID != "" && config.AppConfig.Feishu.AppSecret != "" {
+		feishuAdapter := feishu.NewAdapter(config.AppConfig.Feishu, dispatcher, logger)
+		go func() {
+			if err := feishuAdapter.StartWS(context.Background()); err != nil {
+				logger.Error("Failed to start Feishu WS", zap.Error(err))
+			}
+		}()
+	} else {
+		logger.Warn("Feishu AppID or AppSecret is empty, skipping Feishu adapter start")
+	}
 
 	// 7.2 REST API Adapter (For Coze, Dify, Custom Webhooks)
 	// This also serves as the HTTP server
