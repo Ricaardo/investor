@@ -101,21 +101,53 @@ func (a *Adapter) handleMessage(ctx context.Context, event *larkim.P2MessageRece
 }
 
 func (a *Adapter) Reply(messageID string, text string) {
-	// Properly marshal content to JSON to handle escaping (newlines, quotes, etc.)
-	contentMap := map[string]string{
-		"text": text,
+	// Use Interactive Card (Markdown) for better rendering
+	// We need to construct a specific JSON structure for Feishu Interactive Cards
+
+	// 1. Check if the text is a simple quote card (already formatted by data service)
+	// If it starts with "### 🍎", it's likely a quote card.
+	// But to be safe, we wrap EVERYTHING in a Markdown element in a Card.
+
+	// Construct Card JSON
+	cardContent := map[string]interface{}{
+		"config": map[string]interface{}{
+			"wide_screen_mode": true,
+		},
+		"header": map[string]interface{}{
+			"template": "blue", // Use blue header
+			"title": map[string]interface{}{
+				"content": "Investor AI",
+				"tag":     "plain_text",
+			},
+		},
+		"elements": []map[string]interface{}{
+			{
+				"tag": "markdown",
+				"content": text, // The markdown content from AI
+			},
+			{
+				"tag": "note",
+				"elements": []map[string]interface{}{
+					{
+						"tag":     "plain_text",
+						"content": "⚠️ 投资有风险，决策需谨慎 | Powered by Investor",
+					},
+				},
+			},
+		},
 	}
-	contentBytes, err := json.Marshal(contentMap)
+
+	cardBytes, err := json.Marshal(cardContent)
 	if err != nil {
-		a.Logger.Error("Failed to marshal reply content", zap.Error(err))
+		a.Logger.Error("Failed to marshal card content", zap.Error(err))
 		return
 	}
-	content := string(contentBytes)
+	content := string(cardBytes)
 
 	resp, err := a.Client.Im.Message.Reply(context.Background(), larkim.NewReplyMessageReqBuilder().
 		MessageId(messageID).
 		Body(larkim.NewReplyMessageReqBodyBuilder().
-			MsgType(larkim.MsgTypeText).
+			MsgType(larkim.MsgTypeInteractive). // Change to Interactive
 			Content(content).
 			Build()).
 		Build())
@@ -128,6 +160,6 @@ func (a *Adapter) Reply(messageID string, text string) {
 	if !resp.Success() {
 		a.Logger.Error("Failed to reply message (API error)", zap.Int("code", resp.Code), zap.String("msg", resp.Msg))
 	} else {
-		a.Logger.Info("Reply sent to Feishu")
+		a.Logger.Info("Reply sent to Feishu (Card)")
 	}
 }
